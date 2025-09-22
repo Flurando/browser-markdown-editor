@@ -1,0 +1,128 @@
+/* --- CSS Variables for Theming --- */
+/* Defines colors and styles for the default light theme */
+:root {
+    --bg-color: #f4f4f4; /* Overall background */
+    --text-color: #333; /* Default text color */
+    --controls-bg: #e0e0e0; /* Background for top control bar */
+    --controls-border: #ccc; /* Border color for controls */
+    --button-bg: #f0f0f0; /* Button background */
+    --button-hover-bg: #ddd; /* Button background on hover */
+    --button-border: #aaa; /* Button border */
+    --editor-bg: #fff; /* Background for the text editor area */
+    --preview-bg: #fff; /* Background for the markdown preview area */
+    --toolbar-bg: #f0f0f0; /* Background for the editor toolbar */
+    --toolbar-border: #ccc; /* Border for the editor toolbar */
+    --statusbar-bg: #f0f0f0; /* Background for the status bar below editor */
+    --statusbar-text: #555; /* Text color for the status bar */
+    --link-color: #007bff; /* Color for hyperlinks in preview */
+    --code-bg: #f0f0f0; /* Background for inline code snippets */
+    --pre-bg: #f0f0f0; /* Background for code blocks */
+    --blockquote-border: #ccc; /* Left border color for blockquotes */
+    --blockquote-color: #666; /* Text color for blockquotes */
+    --hr-color: #eee; /* Color for horizontal rules */
+    --menu-bg: #f9f9f9; /* Background for dropdown menu */
+    --menu-border: #ccc; /* Border for dropdown menu */
+    --menu-hover-bg: #e0e0e0; /* Background for menu item on hover */
+    --placeholder-color: #888; /* Color for input placeholders */
+    --icon-color: #666; /* Default color for icons (like close buttons) */
+    --icon-hover-color: #000; /* Color for icons on hover */
+    --preview-bg-rgb: 255, 255, 255; /* RGB version for use in rgba() */
+}
+
+/* Defines overrides for the dark theme */
+body.dark-mode {
+    --bg-color: #2d2d2d;
+    --text-color: #ccc;
+    --controls-bg: #3a3a3a;
+    --controls-border: #555;
+    --button-bg: #4a4a4a;
+    --button-hover-bg: #5a5a5a;
+    --button-border: #666;
+    --editor-bg: #282828;
+    --preview-bg: #2b2b2b;
+    --toolbar-bg: #3a3a3a;
+    --toolbar-border: #555;
+    --statusbar-bg: #3a3a3a;
+    --statusbar-text: #aaa;
+    --link-color: #5a9ee2;
+    --code-bg: #3a3a3a;
+    --pre-bg: #3a3a3a;
+    --blockquote-border: #555;
+    --blockquote-color: #aaa;
+    --hr-color: #444;
+    --menu-bg: #404040;
+    --menu-border: #555;
+    --menu-hover-bg: #505050;
+    --placeholder-color: #777;
+    --icon-color: #aaa;
+    --icon-hover-color: #eee;
+    --preview-bg-rgb: 43, 43, 43; /* RGB version for use in rgba() */
+    --dark-mode-invert: 1; /* Used to invert checkbox color in dark mode */
+}
+/* --- End Theming --- */
+
+/* --- Basic Layout & Body --- */
+html, body { height: 100%; margin: 0; overflow: hidden; /* Prevent scrolling on body */ }
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    position: relative; /* Needed for absolute positioning contexts */
+}
+
+/* --- Top Controls Bar --- */
+.controls {
+    padding: 8px 10px;
+    background-color: var(--controls-bg);
+    border-bottom: 1px solid var(--controls-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    flex-shrink: 0; /* Prevent shrinking */
+    position: relative;
+    z-index: 10; /* Ensure it's above main content */
+}
+.controls button, .controls select, .controls input[type="search"] { padding: 6px 10px; cursor: pointer; border: 1px solid var(--button-border); border-radius: 4px; background-color: var(--button-bg); color: var(--text-color); font-size: 13px; white-space: nowrap; /* Prevent button text wrapping */ }
+.controls button:hover, .controls input[type="search"]:hover, .controls select:hover { background-color: var(--button-hover-bg); }
+.controls label { margin-left: 3px; font-weight: bold; white-space: nowrap; font-size: 13px; }
+/* --- Main Application Container (Sidebar + Main Content) --- */
+#appContainer { display: flex; flex-grow: 1; /* Take remaining vertical space */ overflow: hidden; /* Prevent content overflow */ position: relative; }
+
+/* --- Main Content Area (Tabs, Editor, Preview) --- */
+#mainContent { flex-grow: 1; /* Take remaining horizontal space */ display: flex; flex-direction: column; overflow: hidden; position: relative; z-index: 1; }
+
+/* Editor Toolbar Styles */
+#editorToolbar { padding: 5px 10px; background-color: var(--toolbar-bg); border-bottom: 1px solid var(--toolbar-border); flex-shrink: 0; user-select: none; /* Prevent text selection */ }
+#editorToolbar button { font-family: Arial, sans-serif; font-weight: bold; font-size: 14px; padding: 3px 8px; margin: 2px; cursor: pointer; border: 1px solid var(--button-border); background-color: var(--button-bg); color: var(--text-color); border-radius: 3px; min-width: 25px; text-align: center; vertical-align: middle; }
+#editorToolbar button:hover { background-color: var(--button-hover-bg); border-color: #aaa; }
+#editorToolbar .heading-btn { font-size: 12px; }
+
+/* Editor/Preview Container Styles */
+.container { display: flex; flex-grow: 1; /* Take remaining vertical space */ overflow: hidden; z-index: 0; background-color: var(--editor-bg); }
+#editorContainer { display: flex; flex-direction: column; /* Stack editor and status bar */ flex-basis: 50%; /* Default width */ flex-shrink: 1; flex-grow: 1; min-width: 100px; /* Minimum resize width */ height: auto; overflow: hidden; background-color: var(--editor-bg); }
+#editor { flex-grow: 1; /* Take available space in editorContainer */ border: none; resize: none; /* Disable manual textarea resize */ font-family: monospace; background-color: var(--editor-bg); color: var(--text-color); outline: none; /* Remove focus outline */ height: auto; width: 100%; padding: 15px; box-sizing: border-box; overflow-y: auto; font-size: 14px; line-height: 1.6; }
+#statusBar { padding: 3px 10px; font-size: 11px; color: var(--statusbar-text); background-color: var(--statusbar-bg); border-top: 1px solid var(--controls-border); text-align: right; flex-shrink: 0; /* Prevent shrinking */ white-space: nowrap; }
+#preview { flex-basis: 50%; /* Default width */ flex-shrink: 1; flex-grow: 1; background-color: var(--preview-bg); color: var(--text-color); min-width: 100px; /* Minimum resize width */ height: 100%; padding: 15px; box-sizing: border-box; overflow-y: auto; overflow-wrap: break-word; font-size: 14px; line-height: 1.6; border-left: none;}
+
+/* --- Markdown Preview Specific Styles --- */
+#preview h1, #preview h2, #preview h3, #preview h4, #preview h5, #preview h6 { margin-top: 1em; margin-bottom: 0.5em; border-bottom: 1px solid var(--hr-color); padding-bottom: 0.3em; }
+#preview h1 { font-size: 2em; }
+#preview h2 { font-size: 1.5em; }
+#preview h3 { font-size: 1.25em; }
+#preview code { background-color: var(--code-bg); padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; }
+#preview pre { background-color: var(--pre-bg); padding: 10px; border-radius: 4px; overflow-x: auto; color: var(--text-color); }
+#preview pre code { background-color: transparent; padding: 0; } /* Reset code style inside pre */
+#preview blockquote { border-left: 4px solid var(--blockquote-border); padding-left: 10px; color: var(--blockquote-color); margin-left: 0; }
+#preview ul, #preview ol { padding-left: 20px; }
+/* GitHub-style Task Lists */
+#preview .task-list-item { list-style-type: none; margin-left: -1.2em; /* Adjust positioning */ }
+#preview .task-list-item input[type="checkbox"] { margin-right: 0.5em; filter: invert(var(--dark-mode-invert, 0)); /* Invert checkbox color in dark mode */ }
+#preview table { border-collapse: collapse; width: auto; }
+#preview th, #preview td { border: 1px solid var(--tab-border); padding: 6px 13px; }
+#preview th { font-weight: bold; background-color: var(--button-bg); }
+#preview img { max-width: 100%; background-color: white; /* Ensure images with transparency look ok */ }
+#preview hr { border: 0; border-top: 1px solid var(--hr-color); margin: 1em 0; }
+#preview a { color: var(--link-color); }
