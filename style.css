@@ -1,0 +1,91 @@
+/* --- CSS Variables for Theming --- */
+/* Defines colors and styles for the default light theme */
+:root {
+    --bg-color: #f4f4f4; /* Overall background */
+    --text-color: #333; /* Default text color */
+    --controls-bg: #e0e0e0; /* Background for top control bar */
+    --controls-border: #ccc; /* Border color for controls */
+    --button-bg: #f0f0f0; /* Button background */
+    --button-hover-bg: #ddd; /* Button background on hover */
+    --button-border: #aaa; /* Button border */
+    --editor-bg: #fff; /* Background for the text editor area */
+    --toolbar-bg: #f0f0f0; /* Background for the editor toolbar */
+    --toolbar-border: #ccc; /* Border for the editor toolbar */
+    --link-color: #007bff; /* Color for hyperlinks in preview */
+    --code-bg: #f0f0f0; /* Background for inline code snippets */
+    --pre-bg: #f0f0f0; /* Background for code blocks */
+    --blockquote-border: #ccc; /* Left border color for blockquotes */
+    --blockquote-color: #666; /* Text color for blockquotes */
+    --hr-color: #eee; /* Color for horizontal rules */
+    --placeholder-color: #888; /* Color for input placeholders */
+    --icon-color: #666; /* Default color for icons (like close buttons) */
+    --icon-hover-color: #000; /* Color for icons on hover */
+    --preview-bg-rgb: 255, 255, 255; /* RGB version for use in rgba() */
+}
+
+/* Defines overrides for the dark theme */
+body.dark-mode {
+    --bg-color: #2d2d2d;
+    --text-color: #ccc;
+    --controls-bg: #3a3a3a;
+    --controls-border: #555;
+    --button-bg: #4a4a4a;
+    --button-hover-bg: #5a5a5a;
+    --button-border: #666;
+    --editor-bg: #282828;
+    --toolbar-bg: #3a3a3a;
+    --toolbar-border: #555;
+    --link-color: #5a9ee2;
+    --code-bg: #3a3a3a;
+    --pre-bg: #3a3a3a;
+    --blockquote-border: #555;
+    --blockquote-color: #aaa;
+    --hr-color: #444;
+    --placeholder-color: #777;
+    --icon-color: #aaa;
+    --icon-hover-color: #eee;
+    --preview-bg-rgb: 43, 43, 43; /* RGB version for use in rgba() */
+    --dark-mode-invert: 1; /* Used to invert checkbox color in dark mode */
+}
+/* --- End Theming --- */
+
+/* --- Basic Layout & Body --- */
+html, body { height: 100vh; margin: 0; overflow: hidden; /* Prevent scrolling on body */ }
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    position: relative; /* Needed for absolute positioning contexts */
+}
+
+/* --- Top Controls Bar --- */
+.controls {
+    padding: 8px 10px;
+    background-color: var(--controls-bg);
+    border-bottom: 1px solid var(--controls-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    flex-shrink: 0; /* Prevent shrinking */
+    position: sticky;
+    z-index: 1;
+}
+.controls button, .controls select, .controls input[type="search"] { padding: 6px 10px; cursor: pointer; border: 1px solid var(--button-border); border-radius: 4px; background-color: var(--button-bg); color: var(--text-color); font-size: 13px; white-space: nowrap; /* Prevent button text wrapping */ }
+.controls button:hover, .controls input[type="search"]:hover, .controls select:hover { background-color: var(--button-hover-bg); }
+.controls label { margin-left: 3px; font-weight: bold; white-space: nowrap; font-size: 13px; }
+/* --- Main Application Container (Sidebar + Main Content) --- */
+#appContainer { display: flex; flex-grow: 1; /* Take remaining vertical space */ overflow: hidden; /* Prevent content overflow */ position: sticky; z-index: 1;}
+
+/* --- Main Content Area Editor --- */
+#mainContent { flex-grow: 1; /* Take remaining horizontal space */ display: flex; flex-direction: column; overflow: hidden; position: relative; z-index: 1; }
+
+/* Editor Toolbar Styles */
+#editorToolbar { padding: 5px 10px; background-color: var(--toolbar-bg); border-bottom: 1px solid var(--toolbar-border); flex-shrink: 0; user-select: none; /* Prevent text selection */ }
+#editorToolbar button { font-family: Arial, sans-serif; font-weight: bold; font-size: 14px; padding: 3px 8px; margin: 2px; cursor: pointer; border: 1px solid var(--button-border); background-color: var(--button-bg); color: var(--text-color); border-radius: 3px; min-width: 25px; text-align: center; vertical-align: middle; }
+#editorToolbar button:hover { background-color: var(--button-hover-bg); border-color: #aaa; }
+#editorToolbar .heading-btn { font-size: 12px; }
+
+#editor { flex-grow: 1; /* Take available space in editorContainer */ border: none; resize: none; /* Disable manual textarea resize */ font-family: monospace; background-color: var(--editor-bg); color: var(--text-color); outline: none; /* Remove focus outline */ width: 100%; padding: 15px; box-sizing: border-box; overflow-y: auto; font-size: 14px; line-height: 1.6; }
